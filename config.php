@@ -7,7 +7,9 @@
  * To change this template use File | Settings | File Templates.
  */
 
-    $user = "root";
-    $password = "";
-    $db = "financedb";
-    $path = "localhost";
+class config {
+    public static $dbuser = "root";
+    public static $dbpass = "";
+    public static $dbname = "financedb";
+    public static $dbhost = "localhost";
+}
