@@ -9,7 +9,7 @@
 
 class config {
     public static $dbuser = "root";
-    public static $dbpass = "aurora";
+    public static $dbpass = "";
     public static $dbname = "financedb";
     public static $dbhost = "localhost";
 }
