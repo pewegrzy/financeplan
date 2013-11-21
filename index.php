@@ -15,22 +15,29 @@ $app = new \Slim\Slim();
 $app->contentType('application/json; charset=utf-8');
 $res = $app->response();
 
-//$app->get('/store', 'showTeste');
-$app->get('/store/:cat', 'storeCat');
-$app->get('/bla/:stuff', function($stuff){
-    echo "halo ". $stuff;
-});
+$app->get('/storeNewCategory/:cat', 'storeCats');
+$app->get('/showCategories', 'showCats');
+$app->get('/getJson', 'getJsonObject');
+$app->get('/test', 'jsonTest');
+
 
 $app->run();
 
-require_once 'storeItems.php';
+require_once 'controller.php';
 
-
-function storeCat($cat) {
-    storeItems::newCategory($cat);
+function getJsonObject(){
+    controller::getNewItemsFromJSON();
 }
 
-function showTeste(){
-    //var_dump('hey');
-    storeItems::showTest();
+function storeCats($cat) {
+    controller::createCategory($cat);
+}
+
+function showCats() {
+    //echo "showCats";
+    controller::showCategories();
+}
+
+function jsonTest(){
+    test::jsonTestMethod();
 }

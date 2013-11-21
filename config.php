@@ -8,8 +8,14 @@
  */
 
 class config {
+    //Paths
+    public static $json_input_link = "http://localhost/financeplan/finance-plan/jsonTestString.php";
+
+    //Database
     public static $dbuser = "root";
-    public static $dbpass = "";
+    public static $dbpass = "aurora";
     public static $dbname = "financedb";
     public static $dbhost = "localhost";
+
+
 }
