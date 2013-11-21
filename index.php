@@ -16,10 +16,14 @@ $app->contentType('application/json; charset=utf-8');
 $res = $app->response();
 
 //$app->get('/storeNewCategory/:cat', 'storeCats');
-$app->get('/showCategories', 'showCats');
-$app->get('/getJson', 'getJsonObject');
+$app->get('/showCategories', 'showCats');       //vorhandene Kategorien anzeigen
+$app->get('/getJson', 'getJsonObject');     //Daten vom Handy einlesen
 //$app->get('/test', 'jsonTest');
 
+// für die Charts
+$app->get('/getOverall/:from/:to', 'getOverall');
+$app->get('/getCategories/:from/:to', 'getCategories');
+$app->get('/getGroups/:from/:to', 'getGroups');
 
 $app->run();
 
@@ -40,4 +44,16 @@ function showCats() {
 
 function jsonTest(){
     test::jsonTestMethod();
+}
+
+function getOverall($from, $to) {
+
+}
+
+function getCategories($from, $to) {
+
+}
+
+function getGroups($from, $to) {
+
 }
