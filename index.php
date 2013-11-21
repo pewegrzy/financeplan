@@ -15,10 +15,10 @@ $app = new \Slim\Slim();
 $app->contentType('application/json; charset=utf-8');
 $res = $app->response();
 
-$app->get('/storeNewCategory/:cat', 'storeCats');
+//$app->get('/storeNewCategory/:cat', 'storeCats');
 $app->get('/showCategories', 'showCats');
 $app->get('/getJson', 'getJsonObject');
-$app->get('/test', 'jsonTest');
+//$app->get('/test', 'jsonTest');
 
 
 $app->run();
