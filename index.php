@@ -45,9 +45,9 @@ function showCats() {
 function jsonTest(){
     test::jsonTestMethod();
 }
-
+// http://localhost/financeplan/finance-plan/index.php/getOverall/2013-11-19%2004:22:13/2013-11-22%2004:22:13
 function getOverall($from, $to) {
-
+    ChartManager::getOverall($from, $to);
 }
 
 function getCategories($from, $to) {

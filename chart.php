@@ -1,142 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>GrafikChart</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <script src="js/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.js" type="text/javascript"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
+
+    <!-- <link type="text/css" rel="stylesheet" href="calendar/dhtmlgoodies_calendar/dhtmlgoodies_calendar.css?random=20051112" media="screen">
+    <SCRIPT type="text/javascript" src="calendar/dhtmlgoodies_calendar/dhtmlgoodies_calendar.js"></script> -->
+
 </head>
 <body>
-<script>
-/*
-    $(function () {
-        $('#container').highcharts({
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'Fruit Consumption'
-            },
-            xAxis: {
-                categories: ['Apples', 'Bananas', 'Oranges']
-            },
-            yAxis: {
-                title: {
-                    text: 'Fruit eaten'
-                }
-            },
-            series: [{
-                name: 'Jane',
-                data: [1, 0, 4]
-            }, {
-                name: 'John',
-                data: [5, 7, 3]
-            }]
-        });
-    });
-*/
-/*
-    $(document).ready(function() {
 
-        var options = {
-            chart: {
-                renderTo: 'container',
-                type: 'bar'
-            },
-            series: [{}]
-        };
+<div id="userInput">
+    <a href="chart.php?site=overview">overview</a>
+    <a href="chart.php?site=overviewCategories">categories</a>
+    <a href="chart.php?site=group">groups</a>
+</div>
 
-        $.getJSON('data.json', function(data) {
-            options.series[0].data = data;
-            var chart = new Highcharts.Chart(options);
-        });
 
-    });
-    */
-<?php
-    $zahlphp = 8;
-?>
-$(function () {
-    var zahl = <?= $zahlphp ?>;
-    $.getJSON('http://localhost/financeplan/finance-plan/index.php/showCategories', function(data) {
-        var options = {
-            chart: {
-                renderTo: "container",
-                type: 'bar'
-            },
-            title: {
-                text: 'Ausgaben Januar'
-            },
-            xAxis: {
-                categories: ['apfle', 'banane']
-            },
-            yAxis: {
-                title: {
-                    text: 'Ausgaben in Euro'
-                }
-            },
-            series: [{
-            name: 'User 1',
-            data: [30, 45, 20]
-        }, {
-            name: 'User 2',
-            data: [15, 50, 30, 5, 40, 50]
-        }]
-        };
+<div id="dateiniput">
+    <p>Date: <input type="text" id="fromDate"></p>
+    <p>Date: <input type="text" id="toDate"></p>
+</div>
 
-        var option2 = {
-            chart: {
-                renderTo: "container",
-                type: 'line'
-            },
-            title: {
-                text: 'Ausgaben Penis'
-            },
-            xAxis: {
-                categories: ['apfle', 'banane']
-            },
-            yAxis: {
-                title: {
-                    text: 'Ausgaben in Euro'
-                }
-            },
-            series: [{
-                name: 'User 1',
-                data: [30, 45, 20]
-            }, {
-                name: 'User 2',
-                data: [15, 50, 30, 5, 40, 50]
-            }]
-        };
-        var kategorien = data['categories'];
-        var mengeCategroy = data['categories'].length;
-        var cats = new Array(mengeCategroy);
-        var i = 0;
-        $.each(kategorien, function(key, value){
-            //console.log(data['categories']);
-            //console.log(value['Category']);
-            cats[i] = value['Category'];
-            i++;
-            console.log(cats);
 
-            console.log(zahl);
-        });
-        //options.xAxis.categories = data['categories'];
-        options.xAxis.categories = cats;
 
-        switch (zahl){
-            case 5:
-                chart = new Highcharts.Chart(options);
-            break;
-            case 8:
-                chart = new Highcharts.Chart(option2);
-                break;
+
+
+<!-- <form>
+    <table>
+
+        <tr><td>Ausgaben von: </td><td><td><input type="text" value="25.11.2013" name="theFromDate" id="theFromDate"><input type="button" value="Cal" onclick="displayCalendar(document.forms[0].theFromDate,'dd.mm.yyyy',this)"></td></tr>
+        <tr><td>Ausgaben bis: </td><td><td><input type="text" value="25.11.2013" name="theToDate" id="theToDate"><input type="button" value="Cal" onclick="displayCalendar(document.forms[0].theToDate,'dd.mm.yyyy',this)"></td></tr>
+
+    </table>
+-->
+    <?php
+
+    if (isset($_GET["site"]))
+    {
+        $site = $_GET["site"];
+        if (strlen($site) != 0)
+        {
+            if ($site == "overview")
+                include 'overview.php';
+
+            if ($site == "overviewCategories")
+                include 'overviewCategories.php';
+
+            if ($site == "group")
+                include 'group.php';
         }
-
-    });
-
-});
-
-</script>
+    }
+    ?>
 
 <div id="container" style="width:1200px; height:600px;">
 

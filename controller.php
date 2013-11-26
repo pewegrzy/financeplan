@@ -9,6 +9,7 @@
 
 class controller {
 
+
     public static function createCategory($category) {
         $null = NULL;
         $sql = "INSERT INTO categories (
