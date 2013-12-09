@@ -28,6 +28,52 @@ class controller {
         }
     }
 
+    public static function createGroup($groupName) {
+        //$arr = array('ba' => $groupName);
+        //$arr = json_encode($groupName);
+        $anzahlElements = (count($groupName['group']));
+        $gruppenName = $groupName['group']['groupName'];
+        for($i = 0; $i < $anzahlElements - 1; $i++) {
+            $catName = ($groupName['group'][$i]);
+            $catId = controller::getIdFromCategoryName($catName);
+            $null = NULL;
+
+            $sql = "INSERT INTO  categorygroup  ( groupname , categoryname, category_id)
+                    SELECT * FROM (SELECT :groupName, :catName, :catId) AS tmp
+                    WHERE NOT EXISTS (
+                        SELECT groupname , categoryname FROM categorygroup WHERE groupname = :groupName AND categoryname = :catName
+                    ) LIMIT 1;";
+            try{
+                $db = dbConnect::getConnection();
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(":groupName", $gruppenName);
+                $stmt->bindParam(":catName", $catName);
+                $stmt->bindParam(":catId", $catId);
+                $stmt->execute();
+                echo "update gut";
+            } catch(PDOException $e) {
+                echo '{"error":{"text":'. $e->getMessage() .'}}';
+            }
+        }
+    }
+
+    public static function getAllGroups() {
+        $sql = "SELECT * FROM categorygroup GROUP BY groupname";
+        try{
+            $dbh = dbConnect::getConnection();
+            $stmt = $dbh->query($sql);
+            $msg = $stmt->fetchAll(PDO::FETCH_OBJ);
+            $dbh = null;
+
+            echo '{"groups":'.json_encode($msg).'}';
+
+        } catch(PDOException $e) {
+            echo $e;
+        }
+    }
+
+
+
     public static function showCategories(){
     $sql = "SELECT * FROM categories";
         try{
