@@ -4,6 +4,11 @@
 </head>
 <body>
 <script>
+    var current_host = document.location.hostname;
+    if(document.location.hostname == 'localhost')
+        current_host = 'http://'+current_host+'/financeplan/';
+    else current_host = 'http://'+current_host+'/';
+
 
     function Runden2Dezimal(x) {
         Ergebnis = Math.round(x * 100) / 100 ;
@@ -60,7 +65,7 @@
     select.appendChild(option);
     //http://localhost/financeplan/finance-plan/index.php/getOverallGroupByDate/2013-11-19%2004:22:13/2013-11-30%2004:22:13
     function drawSelectorCategories() {
-        var JSON = $.getJSON('http://localhost/financeplan/finance-plan/index.php/showCategories', function(data) {
+        var JSON = $.getJSON(current_host+'finance-plan/index.php/showCategories', function(data) {
             var JsonObejct = data['categories'];
             $.each(JsonObejct, function(key, value) {
                 var option = document.createElement("option");
@@ -79,7 +84,7 @@
     selectGroup.appendChild(optionGroup);
     //http://localhost/financeplan/finance-plan/index.php/getOverallGroupByDate/2013-11-19%2004:22:13/2013-11-30%2004:22:13
     function drawSelectorGroups() {
-        var JSON = $.getJSON('http://localhost/financeplan/finance-plan/index.php/getGroups', function(data) {
+        var JSON = $.getJSON(current_host+'finance-plan/index.php/getGroups', function(data) {
             var JsonObejct = data['groups'];
             $.each(JsonObejct, function(key, value) {
                 var option = document.createElement("option");
@@ -125,7 +130,7 @@
         if(categoryDate == 'Datum')
             alert("Datum ist nicht ausgeüllt!!");
         else {
-            var JSON = $.getJSON('http://localhost/financeplan/finance-plan/index.php//createCategory/'+categoryName+'/'+categoryAmount+'/'+categoryDate+' '+getUhrzeit(), function(data) {
+            var JSON = $.getJSON(current_host+'finance-plan/index.php/createCategory/'+categoryName+'/'+categoryAmount+'/'+categoryDate+' '+getUhrzeit(), function(data) {
             alert(JSON);
             }).always(function () {
                     alert(window.location.reload());
@@ -156,7 +161,7 @@
         $("#categoriesToGroup").append('<strong>Kategorien der Gruppe<br> '+ group +'</strong><br><br>');
         var actGroup = group;
         var div = document.getElementById('categoriesToGroup');
-        var Json = $.getJSON('http://localhost/financeplan/finance-plan/index.php/getCategoriesToGroup/'+actGroup, function(data) {
+        var Json = $.getJSON(current_host+'finance-plan/index.php/getCategoriesToGroup/'+actGroup, function(data) {
             var JsonObejct = data['entries'];
             $.each(JsonObejct, function(key, value) {
                 $("#categoriesToGroup").append(value['categoryname']+'<br>');
@@ -166,7 +171,7 @@
     };
     //Cheboxen mit Kategorien erstellen
     function createCheckboxes() {
-        var JSON = $.getJSON('http://localhost/financeplan/finance-plan/index.php/showCategories', function(data) {
+        var JSON = $.getJSON(current_host+'finance-plan/index.php/showCategories', function(data) {
             var JsonObject = data['categories'];
             $.each(JsonObject, function(key, value) {
                 var label= document.createElement("label");
@@ -194,7 +199,7 @@
         if(valGroup() == 'Alles')
             alert("Die Gruppe ALLES kann nicht gelöscht werden");
         else {
-            var JSON = $.getJSON('http://localhost/financeplan/finance-plan/index.php/deleteGroup/'+valGroup(), function(data) {
+            var JSON = $.getJSON(current_host+'finance-plan/index.php/deleteGroup/'+valGroup(), function(data) {
 
 
             }).always(function() {
@@ -209,7 +214,7 @@
         if(val() == 'Alles')
             alert("Die Kategorie ALLES kann nicht gelöscht werden");
         else {
-            var JSON = $.getJSON('http://localhost/financeplan/finance-plan/index.php/deleteCategory/'+val(), function(data) {
+            var JSON = $.getJSON(current_host+'finance-plan/index.php/deleteCategory/'+val(), function(data) {
 
 
             }).always(function() {
@@ -248,7 +253,7 @@
     //Gruppe in der Datenbank anlegen
     function sendData(data) {
         $.ajax({
-            url: 'http://localhost/financeplan/finance-plan/index.php/createGroup',
+            url: current_host+'finance-plan/index.php/createGroup',
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json',
@@ -281,7 +286,7 @@
             var from = myFromDatum;
             var to = myToDatum;//'2013-11-22%2004:22:13';
 
-            $.getJSON('http://localhost/financeplan/finance-plan/index.php/getOverallGroupByDate/'+from+'/'+to, function(data) {
+            $.getJSON(current_host+'finance-plan/index.php/getOverallGroupByDate/'+from+'/'+to, function(data) {
                 var option = {
                     chart: {
                         renderTo: "container",
@@ -368,7 +373,7 @@
             var from = myFromDatum;
             var to = myToDatum;//'2013-11-22%2004:22:13';
 
-            $.getJSON('http://localhost/financeplan/finance-plan/index.php/getCategoryGroupByDate/'+actualSelection+'/'+from+'/'+to, function(data) {
+            $.getJSON(current_host+'finance-plan/index.php/getCategoryGroupByDate/'+actualSelection+'/'+from+'/'+to, function(data) {
                 var option = {
                     chart: {
                         renderTo: "container",
@@ -456,7 +461,7 @@
             var from = myFromDatum;
             var to = myToDatum;//'2013-11-22%2004:22:13';
 
-            $.getJSON('http://localhost/financeplan/finance-plan/index.php/getGroup/'+actualSelection+'/'+from+'/'+to, function(data) {
+            $.getJSON(current_host+'finance-plan/index.php/getGroup/'+actualSelection+'/'+from+'/'+to, function(data) {
                 var option = {
                     chart: {
                         renderTo: "container",
@@ -556,6 +561,7 @@
     drawSelectorCategories();
     drawSelectorGroups();
     createCheckboxes();
+    console.log(current_host);
     //drawGraph();
     $('#fromDate').change(
         function() {

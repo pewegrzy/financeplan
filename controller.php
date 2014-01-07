@@ -88,17 +88,15 @@ class controller {
         }
     }
 
-    public static function getNewItemsFromJSON(){
-        $json_path = file_get_contents(config::$json_input_link);
-        $json_object = json_decode( $json_path, true);
-
+    public static function getNewItemsFromJSON($json_object_input){
+        $json_object = json_decode( $json_object_input, true);
         $anzahlItems = sizeof($json_object['entries']);
         for($i = 0; $i<$anzahlItems; $i++) {
+        //{"entries":[{"date":"2014-01-07 14:01:46","categoryName":"Klo","value":250}]}
 
-        //$categoryId = $json_object['entries'][$i]['amount']['categoryId'];
-        $amount =  $json_object['entries'][$i]['amount']['value'];
-        $categoryName =  $json_object['entries'][$i]['amount']['categoryName'];
-        $datum =  $json_object['entries'][$i]['amount']['date'];
+        $amount =  $json_object['entries'][$i]['value'];
+        $categoryName =  $json_object['entries'][$i]['categoryName'];
+        $datum =  $json_object['entries'][$i]['date'];
         $user_id = 0;
 
             if(!controller::isCategoryExistend($categoryName)){

@@ -21,8 +21,10 @@ $res = $app->response();
 
 //$app->get('/storeNewCategory/:cat', 'storeCats');
 $app->get('/showCategories', 'showCats');       //vorhandene Kategorien anzeigen
-$app->get('/getJson', 'getJsonObject');     //Daten vom Handy einlesen
+$app->get('/getJson', 'getJsonObject');     //Daten Datei einlesen
 //$app->get('/test', 'jsonTest');
+
+$app->post('/getJsonFromRalf', 'getJsonRalf'); //Daten vom Handy einlesen
 
 // für die Charts
 $app->get('/getOverall/:from/:to', 'getOverall');
@@ -72,6 +74,16 @@ function createNewGroup() {
     controller::createGroup($vars);
     //print_r($vars['group']['0']);
 }
+
+function getJsonRalf() {
+    //echo "hallo Ralf";
+    $result=\Slim\Slim::getInstance()->request()->getBody();
+    $string = urldecode($result);
+    $vars = array();
+    parse_str($string, $vars);
+    //print_r($vars);
+    controller::getNewItemsFromJSON($string);
+}
 function getCategoryGroupByDate($category, $from, $to) {
     ChartManager::getCategoryGroupByDate($category, $from, $to);
 }
@@ -79,7 +91,7 @@ function getOverallGroupByDate2($from, $to) {
     ChartManager::getOverallGroupByDate($from, $to);
 }
 function getJsonObject(){
-    controller::getNewItemsFromJSON();
+    //controller::getNewItemsFromJSON();
 }
 
 function storeCats($cat) {
@@ -102,7 +114,3 @@ function getOverall($from, $to) {
 function getCategories($from, $to) {
 
 }
-
-//function getGroups($from, $to) {
-
-//}
