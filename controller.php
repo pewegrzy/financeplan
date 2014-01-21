@@ -9,7 +9,7 @@
 
 class controller {
 
-
+    // Hilfsfunktion für CRUD Operation, wird in CharManager.php verwendet
     public static function createCategory($category) {
         $null = NULL;
         $sql = "INSERT INTO categories (
@@ -92,7 +92,7 @@ class controller {
         $json_object = json_decode( $json_object_input, true);
         $anzahlItems = sizeof($json_object['entries']);
         for($i = 0; $i<$anzahlItems; $i++) {
-        //{"entries":[{"date":"2014-01-07 14:01:46","categoryName":"Klo","value":250}]}
+
 
         $amount =  $json_object['entries'][$i]['value'];
         $categoryName =  $json_object['entries'][$i]['categoryName'];
@@ -130,9 +130,6 @@ class controller {
         }
     }
 
-    public static function showTest() {
-        echo "routing funktioniert schonmal";
-    }
 
     public static function checkJsonError($json) {
         json_decode($json);
@@ -148,6 +145,7 @@ class controller {
     /**
      * @param $category
      * returns true if categroy already in Database
+     * hilfsfunktion
      */
     public static function isCategoryExistend($categoryName){
         $sql = "SELECT * FROM categories WHERE Category LIKE '".$categoryName."'";
@@ -167,6 +165,7 @@ class controller {
         }
     }
 
+    //Hilfsfunktion
     public static function getIdFromCategoryName($categoryName){
         $sql = "SELECT Id FROM categories WHERE Category LIKE '".$categoryName."'";
         try{

@@ -4,7 +4,9 @@
  * User: Peter Wegrzynek
  * Date: 21.11.13
  * Time: 16:12
- * To change this template use File | Settings | File Templates.
+ *
+ * Diese Klasse erledigt die CRUD Operationen für die Ajax Anfragen aus der overview.php
+ * und bedient sich der Basisdatenbank Operationen aus der Klasse Kontroller.php
  */
 
 class ChartManager {

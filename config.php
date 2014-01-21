@@ -15,15 +15,9 @@ class config {
     //Database
 
     public static $dbuser = "root";
-    public static $dbpass = "";
+    public static $dbpass = "aurora";
     public static $dbname = "financedb";
     public static $dbhost = "localhost";
 
-/*
-    //online
-    public static $dbuser = "U1508516";
-    public static $dbpass = "hurensohn";
-    public static $dbname = "DB1508516";
-    public static $dbhost = "rdbms.strato.de";
-*/
+
 }

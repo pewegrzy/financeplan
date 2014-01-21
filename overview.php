@@ -4,6 +4,10 @@
 </head>
 <body>
 <script>
+/**
+ * Diese Klasse übernimmt die Javascriptlogik mit allen Hilfsfunktionen und die Darstellung der Highcharts.
+ *
+ */
     var current_host = document.location.hostname;
     if(document.location.hostname == 'localhost')
         current_host = 'http://'+current_host+'/financeplan/';
@@ -57,6 +61,7 @@
             }
         }
     ).change();
+
     //Dropdown erstellen für Kategorie
     var select = document.getElementById("selector");
     var option = document.createElement("option");
@@ -95,17 +100,12 @@
         });
     };
 
-    // Neue Gruppe hinzufügen
+    // Neue Gruppe hinzufügen Buttons
     $(".header").click(function () {
         $header = $(this);
-        //getting the next element
         $content = $header.next();
-        //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
         $content.slideToggle(500, function () {
-            //execute this after slideToggle is done
-            //change text of header based on visibility of content div
             $header.text(function () {
-                //change text based on condition
                 return $content.is(":visible") ? "Collapse" : "Neue Gruppe erstellen";
             });
         });
@@ -139,7 +139,7 @@
 
     }
 
-    // Neue Kategorie hinzufügen
+    // Button um neue Kategorie hinzuzufügen
     $(".header2").click(function () {
         $header = $(this);
         //getting the next element
@@ -562,7 +562,6 @@
     drawSelectorGroups();
     createCheckboxes();
     console.log(current_host);
-    //drawGraph();
     $('#fromDate').change(
         function() {
             $('#categoriesToGroup').empty();
@@ -587,7 +586,7 @@ function selectGraph() {
         showCategoriesToGroups(valGroup());
     }
 
-    else alert('fuck');
+    else alert('Da ist etwas schief gegangen');
 
 }
 
